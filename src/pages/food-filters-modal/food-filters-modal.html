@@ -1,0 +1,36 @@
+<!--
+  Generated template for the FoodFiltersModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button (click)="onClickCancel()" ion-button icon-only color="royal">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Food Filters</ion-title>
+    <ion-buttons end>
+      <button (click)="onClickOK()" ion-button icon-only color="royal">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      Category
+    </ion-list-header>
+    <ion-item *ngFor="let category of categories">
+      <ion-label>{{ category.name }}</ion-label>
+      <ion-checkbox (ionChange)="onCategoryToggle(category.categoryId, $event)" [checked]="selectedCategories.includes(category.categoryId)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>

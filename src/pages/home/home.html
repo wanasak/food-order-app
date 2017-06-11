@@ -4,15 +4,55 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentEyePopover($event)">
+        <ion-icon name="eye"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="presentFoodFiltersModal()">
+        <ion-icon name="options"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <ion-list *ngIf="homeView === enumHomeView.List; else gridViewFood">
+    <ion-item *ngFor="let food of filteredFoods">
+      <ion-avatar item-start>
+        <img src="assets/img/small-portion.jpg">
+      </ion-avatar>
+      <h2>{{ food.name }}</h2>
+      <h3 text-wrap>{{ food.description }}</h3>
+      <p>{{ food.price | currency:'USD':true }}</p>
+    </ion-item>
+  </ion-list>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ng-template #gridViewFood>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let food of filteredFoods" col-12 col-sm>
+          <ion-card>
+            <img src="assets/img/small-portion.jpg" />
+            <ion-card-content>
+              <ion-card-title>
+                {{ food.name }}
+              </ion-card-title>
+              <h3>{{ food.description }}</h3>
+              <p>
+                {{ food.price | currency:'USD':true }}
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+
+  <ion-fab right bottom>
+    <button ion-fab color="light"><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab><ion-icon name="basket"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>
